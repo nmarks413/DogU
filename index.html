@@ -11,7 +11,8 @@
     </style>
 </head>
 <body>
-
+<input type="button" value="create page" onclick="cooli();"/>
+    
 <script type="text/javascript">
 
 var config = {
@@ -42,6 +43,7 @@ var gameOver = false;
 var scoreText;
 var enemy;
 var tint1;
+var level1;
 
 var game = new Phaser.Game(config);
 
@@ -179,6 +181,10 @@ function update ()
     {
         player.setVelocityY(-330);
     }
+    if(level1 = true)
+        {
+                          window.location.href = "level1.html";
+        }
 }
 
 function collectStar (player, star)
@@ -233,7 +239,19 @@ function hitEnemy1 (enemy, bomb)
             enemy.tint = 0xff0000;
             }
     }
-</script>
+function cooli (player)
+    {
+        level1 = true;
+    }
 
+    /* function setLevel1 (player)
+    {
+        if(level1) {
+              window.location.href = "level1.html";
+        }else {
+            console.log("0");
+        }
+    }
+</script>
 </body>
 </html>
