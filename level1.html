@@ -16,8 +16,8 @@
 
 var config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: 1500,
+    height: 800,
     physics: {
         default: 'arcade',
         arcade: {
@@ -44,6 +44,8 @@ var enemy;
 var tint1;
 var playerHealth = 100;
 var enemyHealth = 100;
+var enemyScoreText;
+var playerScoreText;
 var spacebar;
 
 
@@ -51,7 +53,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('sky', 'assets/sky.png');
+    this.load.image('sky', 'assets/placeholdersky.png');
     this.load.image('ground', 'assets/platform.png');
     this.load.image('star', 'assets/star.png');
     this.load.image('bomb', 'assets/bomb.png');
@@ -69,13 +71,13 @@ function create ()
 
     //  Here we create the ground.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+    platforms.create(1000, 817, 'ground').setScale(5).refreshBody();
 
     //  Now let's create some ledges
 
     // The player and its settings
-    player = this.physics.add.sprite(100, 450, 'dude');
-    enemy =  this.physics.add.sprite(200, 450, 'enemy');
+    player = this.physics.add.sprite(100, 710, 'dude');
+    enemy =  this.physics.add.sprite(1000, 650, 'enemy');
     //  Player physics properties. Give the little guy a slight bounce.
     player.setCollideWorldBounds(true);
 
@@ -106,14 +108,14 @@ function create ()
     //  Input Events
     cursors = this.input.keyboard.createCursorKeys();
 
-    //  The score
-    scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
-
+    
     //  Collide the player and the stars with the platforms
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(enemy, platforms);
 
-    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
+    //Display player and enemy health
+    enemyScoreText = this.add.text(1100, 16, `Enemy Health: ${enemyHealth}`, { fontSize: '32px', fill: '#fff' });
+    playerScoreText = this.add.text(16, 16, `Player Health: ${playerHealth}`, { fontSize: '32px', fill: '#fff' });
 
     
     
@@ -132,10 +134,19 @@ function update ()
         return;
     }
     if (Phaser.Input.Keyboard.JustDown(spacebar))
-    {
-        player.x += 100;
-    }
+   {
+       player.x += 100;
+       player.anims.play('right');
+       enemyHealth -= 10;
+       enemyScoreText.setText(`Enemy Health: ${enemyHealth}`);
+       playerHealth += 3;
+       playerScoreText.setText(`Player Health: ${playerHealth}`);
 
+
+    }
+     if (enemyHealth <= 0) {
+         window.location = "http://127.0.0.1:55675/index.html";
+        }   
 }
 
 
@@ -153,13 +164,17 @@ function update ()
     
 function bite (player, enemy){
     //move player to enemy
-    player
+      player.x += 500;
+      player.anims.play('right');
+    
     //play bite animation
     //set enemy health down
+    enemyHealth -= 3;
+    enemyScoreText.setText(`Enemy Health: ${enemyHealth}`);
     //flash enemy color red
+    enemy.tint= 0xff0000;
     //player move back to home
 }
-            
 </script>
 
 </body>
