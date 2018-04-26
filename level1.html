@@ -53,18 +53,18 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('sky', 'assets/placeholdersky.png');
+    this.load.image('sky', 'assets/sky.png');
     this.load.image('ground', 'assets/platform.png');
     this.load.image('star', 'assets/star.png');
     this.load.image('bomb', 'assets/bomb.png');
     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48});
-    this.load.spritesheet('enemy', 'assets/enemy.png',{frameWidth: 160, frameHeight: 160});
+    this.load.spritesheet('enemy', 'assets/enemy.png',{frameWidth: 480, frameHeight: 480});
 }
 
 function create ()
 {
     //  A simple background for our game
-    this.add.image(400, 250, 'sky');
+    this.add.image(720, 360, 'sky');
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = this.physics.add.staticGroup();
@@ -137,18 +137,22 @@ function update ()
    {
        player.x += 100;
        player.anims.play('right');
-       enemyHealth -= 10;
+       // enemyHealth -= 10;
        enemyScoreText.setText(`Enemy Health: ${enemyHealth}`);
-       playerHealth += 3;
+      //  playerHealth -= 10;
        playerScoreText.setText(`Player Health: ${playerHealth}`);
+        enemy.tint= 0xff0000;
+       enemy.tint= 0xffffff;
 
 
     }
      if (enemyHealth <= 0) {
-         window.location = "http://127.0.0.1:55675/index.html";
+         window.location = "http://127.0.0.1:55675/win.html";
         }   
+    if (playerHealth <= 0) {
+        window.location = "http://127.0.0.1:55675/loss.html";
+    }
 }
-
 
 
  function hitBomb (player, bomb)
@@ -166,13 +170,14 @@ function bite (player, enemy){
     //move player to enemy
       player.x += 500;
       player.anims.play('right');
-    
     //play bite animation
+    anims.play('bite');
     //set enemy health down
     enemyHealth -= 3;
     enemyScoreText.setText(`Enemy Health: ${enemyHealth}`);
     //flash enemy color red
     enemy.tint= 0xff0000;
+    enemy.tint= 0xFFFFFF;
     //player move back to home
 }
 </script>
