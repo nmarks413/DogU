@@ -1,0 +1,39 @@
+#image {
+    background-image: url(../assets/logo.png);
+    width: 100%;
+    height: 1000px;
+    border: 1px solid;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+    background-color: #FF9800;
+}
+body {
+    padding: 0;
+    margin: 0;  
+}
+.start{
+    width: 240px;
+    height: 107px;
+    left: 750px;
+    top: 75px;
+    z-index: 9;
+    background-image: url(../assets/start1.png);
+    position: absolute;
+    display: inline;
+    background-repeat: no-repeat;
+}
+.start:hover {background-image: url(../assets/start2.png); background-repeat: no-repeat;}
+
+.instructions {
+    width: 237x;
+    height: 102px;
+    left: 750px;
+    top: 195px;
+    z-index: 9;
+    background-image: url(../assets/instructions1.png);
+    position: absolute;
+    display: inline;
+    background-repeat: no-repeat;
+
+}
+.instructions:hover {background-image: url(../assets/instructions2.png); background-repeat: no-repeat;}
