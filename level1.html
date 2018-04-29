@@ -5,6 +5,7 @@
     <title>Making your first Phaser 3 Game - Part 10</title>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.1.1/dist/phaser.js"></script>
   <script src="path/to/HealthBar.standalone.js"></script>
+  <link type=""
     <style type="text/css">
         body {
             margin: 0;
@@ -38,7 +39,6 @@ var stars;
 var bombs;
 var platforms;
 var cursors;
-var score = 0;
 var gameOver = false;
 var scoreText;
 var enemy;
@@ -142,14 +142,14 @@ function update ()
          playerHealth -= 10;
        playerScoreText.setText(`Player Health: ${playerHealth}`);
    }
-    // sets enemy health -10 if down arrow is pressed
+    // sets enemy health -10 if 5 key is pressed
      if (Phaser.Input.Keyboard.JustDown(key5)){
     enemy.x -= 100;
        player.anims.play('right');
        enemyHealth -= 10;
        enemyScoreText.setText(`Enemy Health: ${enemyHealth}`);
        }
-
+//sets page to win/loss screen if conditions are met
      if (enemyHealth <= 0) {
          window.location = "/win.html";
         }   
@@ -169,7 +169,7 @@ function update ()
 
   //  gameOver = true;
 } 
-    
+  
 function bite (player, enemy){
     //move player to enemy
       player.x += 500;
