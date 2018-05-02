@@ -48,7 +48,8 @@ var playerScoreText;
 var spacebar;
 var key5;
 var barConfig;
-var myHealthBar
+var myHealthBar;
+var fightbox;
 
 
 var game = new Phaser.Game(config);
@@ -59,6 +60,7 @@ function preload ()
     this.load.image('ground', 'assets/platform.png');
     this.load.image('star', 'assets/star.png');
     this.load.image('bomb', 'assets/bomb.png');
+    this.load.image('fightbox', 'assets/fightbox.png');
     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48});
     this.load.spritesheet('enemy', 'assets/enemy.png',{frameWidth: 160, frameHeight: 160});
 }
@@ -67,8 +69,9 @@ function create ()
 {
     
     //  A simple background for our game
-    this.add.image(720, 360, 'sky');
-
+    this.add.image(720, 368, 'sky');
+    var fightbox = this.add.image(350,620, 'fightbox');
+   this.bringToTop(fightbox);
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = this.physics.add.staticGroup();
 
