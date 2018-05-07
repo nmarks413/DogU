@@ -206,7 +206,9 @@ function update ()
           optionTwoValue = false;
           optionThreeValue = true;
     }
-  
+  if (optionTwoValue === true && Phaser.Input.Keyboard.JustDown(key4)) {
+    player.x += 100;
+      }
 //sets page to win/loss screen if conditions are met
      if (enemyHealth <= 0) {
          window.location = "/win.html";
