@@ -145,6 +145,17 @@ function create ()
 
 function update ()
 {
+
+    if (cursors.up.isDown)
+    {
+        optionTwo.text.fill = '#000';
+        
+        if (cursors.up.isDown) {
+            // some condition
+            do_a_thing();
+        }
+    }
+
     if (gameOver)
     {
         return;
@@ -177,6 +188,9 @@ function update ()
     }
 }
 
+function do_a_thing() {
+    alert("a thing has been done!");
+}
 
  function hitBomb (player, bomb)
 {
