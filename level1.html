@@ -40,20 +40,28 @@ var cursors;
 var gameOver = false;
 var scoreText;
 var enemy;
-var tint1;
 var playerHealth = 100;
 var enemyHealth = 100;
 var enemyScoreText;
 var playerScoreText;
 var spacebar;
+var key1;
+var key2;
+var key3;
 var key4;
 var key5;
-var barConfig;
-var myHealthBar;
 var fightbox;
-var optionOne = true;
+var optionOne;
+var optionOneValue = true;
+var optionTextOne;
 var optionTwo;
+var optionTwoValue = false;
+var optionTextTwo;
 var optionThree;    
+var optionThreeValue = false;
+var optionTextThree;
+
+
 
 
 var game = new Phaser.Game(config);
@@ -62,8 +70,6 @@ function preload ()
 {
     this.load.image('sky', 'assets/sky.png');
     this.load.image('ground', 'assets/platform.png');
-    this.load.image('star', 'assets/star.png');
-    this.load.image('bomb', 'assets/bomb.png');
     this.load.image('fightbox', 'assets/fightbox.png');
     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48});
     this.load.spritesheet('enemy', 'assets/enemy.png',{frameWidth: 160, frameHeight: 160});
@@ -128,16 +134,22 @@ function create ()
     enemyScoreText = this.add.text(1100, 16, `Enemy Health: ${enemyHealth}`, { fontSize: '32px', fill: '#fff' });
     playerScoreText = this.add.text(16, 16, `Player Health: ${playerHealth}`, { fontSize: '32px', fill: '#fff' });
     //move options
-    optionOne= this.add.text(16, 500, `Option one`, { fontSize: '32px', fill: '#000' });
-    optionTwo = this.add.text(16, 600, `Option two`, { fontSize: '32px', fill: '#fff' });
-    optionThree = this.add.text(16, 700, `Option three`, { fontSize: '32px', fill: '#fff' });
+    optionOne = this.add.text(16, 500, `>Option one`, { fontSize: '32px', fill: '#000' });
+    optionTwo = this.add.text(16, 600, `>Option two`, { fontSize: '32px', fill: '#fff' });
+    optionThree = this.add.text(16, 700, `>Option three`, { fontSize: '32px', fill: '#fff' });
+  
+    optionTextOne = this.add.text(1000, 500, `${optionOneValue}`, { fontSize: '32px', fill: '#fff' });
+    optionTextTwo = this.add.text(1000, 600, `${optionTwoValue}`, { fontSize: '32px', fill: '#fff' });
+    optionTextThree = this.add.text(1000, 700, `${optionThreeValue}`, { fontSize: '32px', fill: '#fff' });
 
-    
         
    // this.physics.add.collider(enemy, bombs, hitEnemy1, null, this);
 
     
    spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+  key1 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
+  key2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
+  key3 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
   key5 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE);
   key4 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR);
     
@@ -145,6 +157,7 @@ function create ()
 
 function update ()
 {
+
     if (gameOver)
     {
         return;
@@ -157,17 +170,43 @@ function update ()
        playerScoreText.setText(`Player Health: ${playerHealth}`);
    }
     // sets enemy health -10 if 5 key is pressed
-     if (Phaser.Input.Keyboard.JustDown(key5)){
-    enemy.x -= 100;
-       player.anims.play('right');
-       enemyHealth -= 10;
-       enemyScoreText.setText(`Enemy Health: ${enemyHealth}`);
-       }
-    if (Phaser.Input.Keyboard.JustDown(key4)){ 
-        if(optionOne){
-            
-           };
+  //cycle through inputs
+    if (Phaser.Input.Keyboard.JustDown(key1)) {
+    optionOne.destroy();
+    optionOne = this.add.text(16, 500, `>Option one`, { fontSize: '32px', fill: '#000' });
+    optionTwo.destroy();
+    optionTwo = this.add.text(16, 600, `>Option two`, { fontSize: '32px', fill: '#fff' });
+    optionThree.destroy();
+    optionThree= this.add.text(16, 700, `>Option three`, { fontSize: '32px', fill: '#fff' });
+    optionOneValue = true;
+    optionTwoValue = false;
+    optionThreeValue = false;
+
+  }
+    if (Phaser.Input.Keyboard.JustDown(key2)){ 
+          optionOne.destroy();
+          optionOne = this.add.text(16, 500, `>Option one`, { fontSize: '32px', fill: '#fff' });
+          optionTwo.destroy();
+          optionTwo = this.add.text(16, 600, `>Option two`, { fontSize: '32px', fill: '#000' });
+          optionThree.destroy();
+          optionThree = this.add.text(16, 700, `>Option three`, { fontSize: '32px', fill: '#fff' });
+          optionOneValue = false;
+          optionTwoValue = true;
+          optionThreeValue = false;
+    } 
+  //phase two
+    if (Phaser.Input.Keyboard.JustDown(key3)){ 
+          optionOne.destroy();
+          optionOne = this.add.text(16, 500, `>Option one`, { fontSize: '32px', fill: '#fff' });
+          optionTwo.destroy();
+          optionTwo = this.add.text(16, 600, `>Option two`, { fontSize: '32px', fill: '#fff' });
+          optionThree.destroy();
+          optionThree = this.add.text(16, 700, `>Option three`, { fontSize: '32px', fill: '#000' });
+          optionOneValue = false;
+          optionTwoValue = false;
+          optionThreeValue = true;
     }
+  
 //sets page to win/loss screen if conditions are met
      if (enemyHealth <= 0) {
          window.location = "/win.html";
@@ -175,6 +214,10 @@ function update ()
     if (playerHealth <= 0) {
         window.location = "/loss.html";
     }
+  if(1)
+    optionTextOne.setText(`${optionOneValue}`);
+    optionTextTwo.setText(`${optionTwoValue}`);
+   optionTextThree.setText(`${optionThreeValue}`);
 }
 
 
