@@ -50,6 +50,7 @@ var key2;
 var key3;
 var key4;
 var key5;
+var enter;
 var fightbox;
 var optionOne;
 var optionOneValue = true;
@@ -152,6 +153,7 @@ function create ()
   key3 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
   key5 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE);
   key4 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR);
+  enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     
 }
 
@@ -206,9 +208,16 @@ function update ()
           optionTwoValue = false;
           optionThreeValue = true;
     }
-  if (optionTwoValue === true && Phaser.Input.Keyboard.JustDown(key4)) {
+  if (optionOneValue === true && Phaser.Input.Keyboard.JustDown(enter)) {
     player.x += 100;
       }
+    if (optionTwoValue === true && Phaser.Input.Keyboard.JustDown(enter)) {
+    player.x -= 100;
+      }
+  if (optionThreeValue === true && Phaser.Input.Keyboard.JustDown(enter)) {
+    player.x += 100;
+      }
+
 //sets page to win/loss screen if conditions are met
      if (enemyHealth <= 0) {
          window.location = "/win.html";
