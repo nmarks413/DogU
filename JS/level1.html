@@ -52,11 +52,12 @@ var key4;
 var key5;
 var enter;
 var fightbox;
+var textState = ["",">Bite", ">Tackle", ">Scratch"];
     
 var optionOne;
 var optionOneValue = true;
 var optionTextOne;
-//var textArray = [optionOne = this.add.text(16, 500, `>Bite`, { fontSize: '32px', fill: '#000' }),
+//var textArray = [optionOne = this.add.text(16, 500, ``${textState[1]}``, { fontSize: '32px', fill: '#000' }),
 //optionTwo = this.add.text(16, 600, `>Claw`, { fontSize: '32px', fill: '#fff' }),
 //optionThree = this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#fff' })
   //              ];
@@ -80,16 +81,15 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('sky', 'assets/sky.png');
-    this.load.image('ground', 'assets/platform.png');
-    this.load.image('fightbox', 'assets/fightbox.png');
-    this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48});
-    this.load.spritesheet('enemy', 'assets/enemy.png',{frameWidth: 160, frameHeight: 160});
+    this.load.image('sky', '../assets/sky.png');
+    this.load.image('ground', '../assets/platform.png');
+    this.load.image('fightbox', '../assets/fightbox.png');
+    this.load.spritesheet('dude', '../assets/dude.png', { frameWidth: 32, frameHeight: 48});
+    this.load.spritesheet('enemy', '../assets/enemy.png',{frameWidth: 160, frameHeight: 160});
 }
 
 function create ()
 {
-    
       
     //  A simple background for our game
     this.add.image(720, 368, 'sky');
@@ -147,7 +147,7 @@ function create ()
     enemyScoreText = this.add.text(1100, 16, `Enemy Health: ${enemyHealth}`, { fontSize: '32px', fill: '#fff' });
     playerScoreText = this.add.text(16, 16, `Player Health: ${playerHealth}`, { fontSize: '32px', fill: '#fff' });
     //move options
-    optionOne = this.add.text(16, 500, `>Bite`, { fontSize: '32px', fill: '#000' });
+    optionOne = this.add.text(16, 500, `${textState[1]}`, { fontSize: '32px', fill: '#000' });
     optionTwo = this.add.text(16, 600, `>Tackle`, { fontSize: '32px', fill: '#fff' });
     optionThree = this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#fff' });
   
@@ -186,36 +186,36 @@ function update ()
     // sets enemy health -10 if 5 key is pressed
   //cycle through inputs
     if (Phaser.Input.Keyboard.JustDown(key1)) {
-    optionOne.setText("");
-    optionOne = this.add.text(16, 500, `>Bite`, { fontSize: '32px', fill: '#000' });
-    optionTwo.setText("");
-    optionTwo = this.add.text(16, 600, `>Tackle`, { fontSize: '32px', fill: '#fff' });
-    optionThree.setText("");
-    optionThree= this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#fff' });
+    optionOne.setText(`${textState[0]}`);
+    optionOne = this.add.text(16, 500, `${textState[1]}`, { fontSize: '32px', fill: '#000' });
+    optionTwo.setText(`${textState[0]}`);
+    optionTwo = this.add.text(16, 600,`${textState[2]}`, { fontSize: '32px', fill: '#fff' });
+    optionThree.setText(`${textState[0]}`);
+    optionThree= this.add.text(16, 700, `${textState[3]}`, { fontSize: '32px', fill: '#fff' });
     optionOneValue = true;
     optionTwoValue = false;
     optionThreeValue = false;
 
   }
     if (Phaser.Input.Keyboard.JustDown(key2)){ 
-          optionOne.setText("");
-          optionOne = this.add.text(16, 500, `>Bite`, { fontSize: '32px', fill: '#fff' });
-          optionTwo.setText("");
-          optionTwo = this.add.text(16, 600, `>Tackle`, { fontSize: '32px', fill: '#000' });
-          optionThree.setText("");
-          optionThree = this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#fff' });
+          optionOne.setText(`${textState[0]}`);
+          optionOne = this.add.text(16, 500, `${textState[1]}`, { fontSize: '32px', fill: '#fff' });
+          optionTwo.setText(`${textState[0]}`);
+          optionTwo = this.add.text(16, 600, `${textState[2]}`, { fontSize: '32px', fill: '#000' });
+          optionThree.setText(`${textState[0]}`);
+          optionThree = this.add.text(16, 700, `${textState[3]}`, { fontSize: '32px', fill: '#fff' });
           optionOneValue = false;
           optionTwoValue = true;
           optionThreeValue = false;
     } 
   //phase two
     if (Phaser.Input.Keyboard.JustDown(key3)){ 
-          optionOne.setText("");
-          optionOne = this.add.text(16, 500, `>Bite`, { fontSize: '32px', fill: '#fff' });
-          optionTwo.setText("");
-          optionTwo = this.add.text(16, 600, `>Tackle`, { fontSize: '32px', fill: '#fff' });
-          optionThree.setText("");
-          optionThree = this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#000' });
+          optionOne.setText(`${textState[0]}`);
+          optionOne = this.add.text(16, 500, `${textState[1]}`, { fontSize: '32px', fill: '#fff' });
+          optionTwo.setText(`${textState[0]}`);
+          optionTwo = this.add.text(16, 600, `${textState[2]}`, { fontSize: '32px', fill: '#fff' });
+          optionThree.setText(`${textState[0]}`);
+          optionThree = this.add.text(16, 700, `${textState[3]}`, { fontSize: '32px', fill: '#000' });
           optionOneValue = false;
           optionTwoValue = false;
           optionThreeValue = true;
@@ -239,15 +239,16 @@ function update ()
     if (playerHealth <= 0) {
         window.location = "/loss.html";
     }
-//if (FightOptionVisible === true) {
- //       optionThree = this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#ff9900' });
 
 if (FightOptionVisible === false) {
-    optionOne.setText("");
-    optionTwo.setText("");
-    optionThree.setText("");
-    timedEvent = this.time.delayedCall(500, onEvent, [], this);
+    optionOne.setText(`${textState[0]}`);
+    optionTwo.setText(`${textState[0]}`);
+    optionThree.setText(`${textState[0]}`);
+  timedEvent = this.time.delayedCall(1000, onEvent, [], this);
+  FightOptionVisible = true;
 }
+
+
     optionTextOne.setText(`${optionOneValue}`);
     optionTextTwo.setText(`${optionTwoValue}`);
    optionTextThree.setText(`${optionThreeValue}`);
@@ -277,24 +278,12 @@ if (FightOptionVisible === false) {
     enemy.tint= 0xFFFFFF;
     //player move back to home
 } */
-function onEvent () {
-    //if(optionOneValue === true) {
-    optionOne = this.add.text(16, 500, `>Bite`, { fontSize: '32px', fill: '#fff' });
-    optionTwo = this.add.text(16, 600, `>Tackle`, { fontSize: '32px', fill: '#000' });
-    optionThree= this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#fff' });
-//}
-   /* if(optionTwoValue === true) {
-    optionOne = this.add.text(16, 500, `>Bite`, { fontSize: '32px', fill: '#000' });
-    optionTwo = this.add.text(16, 600, `>Tackle`, { fontSize: '32px', fill: '#fff' });
-    optionThree= this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#fff' });
-}
-    if(optionThreeValue === true) {
-    optionOne = this.add.text(16, 500, `>Bite`, { fontSize: '32px', fill: '#000' });
-    optionTwo = this.add.text(16, 600, `>Tackle`, { fontSize: '32px', fill: '#fff' });
-    optionThree= this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#fff' });
-} */
-    
-}
+  function onEvent () {
+    optionOne.setText(`${textState[1]}`);
+    optionTwo.setText(`${textState[2]}`);
+    optionThree.setText(`${textState[3]}`);
+    console.log("Hi!");
+  }
 </script>
 
 </body>

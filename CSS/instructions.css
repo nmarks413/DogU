@@ -1,0 +1,17 @@
+body {
+  background-color: #FF9800
+}
+h1 {
+  text-align: center;
+  border: 1px black solid;
+  background-color: skyblue;
+}
+.Title {
+  border: 2px black solid;
+  background-color: white;
+  max-width: 100px;
+  text-align: center;
+}
+p {
+  max-width: 200px;
+}
