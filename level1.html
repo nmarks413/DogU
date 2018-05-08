@@ -52,15 +52,26 @@ var key4;
 var key5;
 var enter;
 var fightbox;
+    
 var optionOne;
 var optionOneValue = true;
 var optionTextOne;
+//var textArray = [optionOne = this.add.text(16, 500, `>Bite`, { fontSize: '32px', fill: '#000' }),
+//optionTwo = this.add.text(16, 600, `>Claw`, { fontSize: '32px', fill: '#fff' }),
+//optionThree = this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#fff' })
+  //              ];
+    
 var optionTwo;
 var optionTwoValue = false;
 var optionTextTwo;
+    
 var optionThree;    
 var optionThreeValue = false;
 var optionTextThree;
+    
+var FightOptionVisible = true;
+var timedEvent;
+
 
 
 
@@ -79,6 +90,7 @@ function preload ()
 function create ()
 {
     
+      
     //  A simple background for our game
     this.add.image(720, 368, 'sky');
    // var fightbox = this.add.image(350,620, 'fightbox');
@@ -135,9 +147,9 @@ function create ()
     enemyScoreText = this.add.text(1100, 16, `Enemy Health: ${enemyHealth}`, { fontSize: '32px', fill: '#fff' });
     playerScoreText = this.add.text(16, 16, `Player Health: ${playerHealth}`, { fontSize: '32px', fill: '#fff' });
     //move options
-    optionOne = this.add.text(16, 500, `>Option one`, { fontSize: '32px', fill: '#000' });
-    optionTwo = this.add.text(16, 600, `>Option two`, { fontSize: '32px', fill: '#fff' });
-    optionThree = this.add.text(16, 700, `>Option three`, { fontSize: '32px', fill: '#fff' });
+    optionOne = this.add.text(16, 500, `>Bite`, { fontSize: '32px', fill: '#000' });
+    optionTwo = this.add.text(16, 600, `>Tackle`, { fontSize: '32px', fill: '#fff' });
+    optionThree = this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#fff' });
   
     optionTextOne = this.add.text(1000, 500, `${optionOneValue}`, { fontSize: '32px', fill: '#fff' });
     optionTextTwo = this.add.text(1000, 600, `${optionTwoValue}`, { fontSize: '32px', fill: '#fff' });
@@ -174,48 +186,50 @@ function update ()
     // sets enemy health -10 if 5 key is pressed
   //cycle through inputs
     if (Phaser.Input.Keyboard.JustDown(key1)) {
-    optionOne.destroy();
-    optionOne = this.add.text(16, 500, `>Option one`, { fontSize: '32px', fill: '#000' });
-    optionTwo.destroy();
-    optionTwo = this.add.text(16, 600, `>Option two`, { fontSize: '32px', fill: '#fff' });
-    optionThree.destroy();
-    optionThree= this.add.text(16, 700, `>Option three`, { fontSize: '32px', fill: '#fff' });
+    optionOne.setText("");
+    optionOne = this.add.text(16, 500, `>Bite`, { fontSize: '32px', fill: '#000' });
+    optionTwo.setText("");
+    optionTwo = this.add.text(16, 600, `>Tackle`, { fontSize: '32px', fill: '#fff' });
+    optionThree.setText("");
+    optionThree= this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#fff' });
     optionOneValue = true;
     optionTwoValue = false;
     optionThreeValue = false;
 
   }
     if (Phaser.Input.Keyboard.JustDown(key2)){ 
-          optionOne.destroy();
-          optionOne = this.add.text(16, 500, `>Option one`, { fontSize: '32px', fill: '#fff' });
-          optionTwo.destroy();
-          optionTwo = this.add.text(16, 600, `>Option two`, { fontSize: '32px', fill: '#000' });
-          optionThree.destroy();
-          optionThree = this.add.text(16, 700, `>Option three`, { fontSize: '32px', fill: '#fff' });
+          optionOne.setText("");
+          optionOne = this.add.text(16, 500, `>Bite`, { fontSize: '32px', fill: '#fff' });
+          optionTwo.setText("");
+          optionTwo = this.add.text(16, 600, `>Tackle`, { fontSize: '32px', fill: '#000' });
+          optionThree.setText("");
+          optionThree = this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#fff' });
           optionOneValue = false;
           optionTwoValue = true;
           optionThreeValue = false;
     } 
   //phase two
     if (Phaser.Input.Keyboard.JustDown(key3)){ 
-          optionOne.destroy();
-          optionOne = this.add.text(16, 500, `>Option one`, { fontSize: '32px', fill: '#fff' });
-          optionTwo.destroy();
-          optionTwo = this.add.text(16, 600, `>Option two`, { fontSize: '32px', fill: '#fff' });
-          optionThree.destroy();
-          optionThree = this.add.text(16, 700, `>Option three`, { fontSize: '32px', fill: '#000' });
+          optionOne.setText("");
+          optionOne = this.add.text(16, 500, `>Bite`, { fontSize: '32px', fill: '#fff' });
+          optionTwo.setText("");
+          optionTwo = this.add.text(16, 600, `>Tackle`, { fontSize: '32px', fill: '#fff' });
+          optionThree.setText("");
+          optionThree = this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#000' });
           optionOneValue = false;
           optionTwoValue = false;
           optionThreeValue = true;
     }
   if (optionOneValue === true && Phaser.Input.Keyboard.JustDown(enter)) {
-    player.x += 100;
+    player.x += 500;
+      FightOptionVisible = false;
       }
     if (optionTwoValue === true && Phaser.Input.Keyboard.JustDown(enter)) {
     player.x -= 100;
+    //FightOptionVisible = false;
       }
   if (optionThreeValue === true && Phaser.Input.Keyboard.JustDown(enter)) {
-    player.x += 100;
+    player.x += 300;
       }
 
 //sets page to win/loss screen if conditions are met
@@ -225,25 +239,31 @@ function update ()
     if (playerHealth <= 0) {
         window.location = "/loss.html";
     }
-  if(1)
+//if (FightOptionVisible === true) {
+ //       optionThree = this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#ff9900' });
+
+if (FightOptionVisible === false) {
+    optionOne.setText("");
+    optionTwo.setText("");
+    optionThree.setText("");
+    timedEvent = this.time.delayedCall(500, onEvent, [], this);
+}
     optionTextOne.setText(`${optionOneValue}`);
     optionTextTwo.setText(`${optionTwoValue}`);
    optionTextThree.setText(`${optionThreeValue}`);
 }
-
-
  function hitBomb (player, bomb)
 {
    // this.physics.pause();
 
-    //player.setTint(0xff0000);
+    // player.setTint(0xff0000);
 
     player.anims.play('turn');
 
   //  gameOver = true;
 } 
   
-function bite (player, enemy){
+/* function bite (player, enemy){
     //move player to enemy
       player.x += 500;
       player.anims.play('right');
@@ -256,6 +276,24 @@ function bite (player, enemy){
     enemy.tint= 0xff0000;
     enemy.tint= 0xFFFFFF;
     //player move back to home
+} */
+function onEvent () {
+    //if(optionOneValue === true) {
+    optionOne = this.add.text(16, 500, `>Bite`, { fontSize: '32px', fill: '#fff' });
+    optionTwo = this.add.text(16, 600, `>Tackle`, { fontSize: '32px', fill: '#000' });
+    optionThree= this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#fff' });
+//}
+   /* if(optionTwoValue === true) {
+    optionOne = this.add.text(16, 500, `>Bite`, { fontSize: '32px', fill: '#000' });
+    optionTwo = this.add.text(16, 600, `>Tackle`, { fontSize: '32px', fill: '#fff' });
+    optionThree= this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#fff' });
+}
+    if(optionThreeValue === true) {
+    optionOne = this.add.text(16, 500, `>Bite`, { fontSize: '32px', fill: '#000' });
+    optionTwo = this.add.text(16, 600, `>Tackle`, { fontSize: '32px', fill: '#fff' });
+    optionThree= this.add.text(16, 700, `>Scratch`, { fontSize: '32px', fill: '#fff' });
+} */
+    
 }
 </script>
 
