@@ -1,17 +1,23 @@
 body {
-  background-color: #FF9800
+  background-color: #FF9800;
+  background-color: orange;
+  font-family: arial, sans-serif;
 }
 h1 {
   text-align: center;
-  border: 1px black solid;
-  background-color: skyblue;
+  border-bottom: 3px black solid;
 }
 .Title {
   border: 2px black solid;
   background-color: white;
-  max-width: 100px;
+  max-width: 200px;
   text-align: center;
+  margin: 0 auto;
+  margin-bottom: 10px;
 }
 p {
-  max-width: 200px;
+  max-width: 400px;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 20px;
 }
